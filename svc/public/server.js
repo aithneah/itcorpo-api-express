@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
+const path = require('path')
 
 import { getProjectWithEmployees } from './api'
 import { getBenefitsFromLocalhost } from './api/benefitsLocalhost';
+import { jsonReader } from './file/JSONReader';
+import { fileReader } from './file/FileReader'
 // const { getProjectWithEmployees } = require('./api')
 
 // CHAIN OF RESPONSIBILITY // pierwszy który obsłuży - zamyka temat
@@ -25,9 +28,12 @@ app.get('/projects/:id', async (req, res, next) => {
   next()
 })
 
+const exampleJSON = path.join(__dirname, '../../data/benefits-DE.json')
+
 app.get('/benefits', async (req, res, next) => {
   const benefitsFromLocalhost = await getBenefitsFromLocalhost()
-  res.status(200).send(benefitsFromLocalhost)
+  const result = jsonReader.getContent(exampleJSON)
+  res.status(200).send(result)
 
   next()
 })
