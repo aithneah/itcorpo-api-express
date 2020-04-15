@@ -1,0 +1,1 @@
+export const BENEFITS_SVC_URL = 'http://localhost:3013'
