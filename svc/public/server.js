@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 import { getProjectWithEmployees } from './api'
+import { getBenefitsFromLocalhost } from './api/benefitsLocalhost';
 // const { getProjectWithEmployees } = require('./api')
 
 // CHAIN OF RESPONSIBILITY // pierwszy który obsłuży - zamyka temat
@@ -20,6 +21,13 @@ app.get('/projects/:id', async (req, res, next) => {
   console.log(`received request with projectId:${projectId}`)
   const project = await getProjectWithEmployees(projectId)
   res.status(200).send(project)
+
+  next()
+})
+
+app.get('/benefits', async (req, res, next) => {
+  const benefitsFromLocalhost = await getBenefitsFromLocalhost()
+  res.status(200).send(benefitsFromLocalhost)
 
   next()
 })
