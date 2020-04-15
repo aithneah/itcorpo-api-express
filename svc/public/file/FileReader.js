@@ -5,3 +5,5 @@ export class FileReader {
         return fs.readFileSync(filepath)
     }
 }
+
+export const fileReader = new FileReader
